@@ -9,11 +9,11 @@ environment:
 #  - TOOLSET: vs2019
 
 platform:
-  - Win32
+# - Win32
   - x64
 
 configuration:
-  - Debug
+# - Debug
   - Release
 
 install:
@@ -23,3 +23,14 @@ install:
 
 build:
   project: .build/projects/$(TOOLSET)/bgfx.sln
+
+after_build:
+  - cd \projects\bgfx\.build\win64_vs2017\
+  - 7z a -r \Projects\bgfx\bgfx-bins.zip bin
+  - cd \projects\bgfx\examples\
+  - 7z a -r \Projects\bgfx\bgfx-bins.zip runtime
+# - dir /s /b c:\projects\
+
+artifacts:
+  - path: bgfx-bins.zip
+    name: bgfx_bins
